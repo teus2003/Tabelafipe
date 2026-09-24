@@ -1,5 +1,6 @@
 package br.com.alura.tabelafipe;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -24,6 +25,12 @@ public class Principal {
         }
         String endereco = "https://parallelum.com.br/fipe/api/v1/" + tipo + "/marcas";
         System.out.println(endereco);
-    }
 
+        var consumo = new ConsumoApi();
+        var json = consumo.obterDados(endereco);
+
+        var conversor = new ConverteDados();
+        List<Dados> marcas = conversor.obterLista(json, Dados.class);
+        marcas.forEach(System.out::println);
+    }
 }
