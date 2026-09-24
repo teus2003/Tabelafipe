@@ -11,7 +11,19 @@ public class Principal {
         System.out.println("Caminhão");
         System.out.println("Digite uma das opções para consulta de valores");
         var opcao = leitura.nextLine();
-        System.out.println(opcao);
+        String tipo;
+        if(opcao.equalsIgnoreCase("Carro")){
+            tipo = "carros";
+        }
+        else if (opcao.equalsIgnoreCase("Moto")){
+            tipo = "motos";
+        }
+        else{
+            tipo = "caminhoes";
+
+        }
+        String endereco = "https://parallelum.com.br/fipe/api/v1/" + tipo + "/marcas";
+        System.out.println(endereco);
     }
 
 }
