@@ -1,5 +1,6 @@
 package br.com.alura.tabelafipe;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,6 +32,12 @@ public class Principal {
 
         var conversor = new ConverteDados();
         List<Dados> marcas = conversor.obterLista(json, Dados.class);
-        marcas.forEach(System.out::println);
+        marcas.stream()
+                .sorted(Comparator.comparing(Dados::codigo))
+                .forEach(m -> System.out.println("Cod: " + m.codigo() + " Descrição: " + m.nome()));
+        System.out.println("Informe o código da marca para consulta");
+        var codigoMarca = leitura.nextLine();
+        endereco = endereco +"/" + codigoMarca + "/modelos";
+        System.out.println(endereco);
     }
 }
