@@ -39,5 +39,12 @@ public class Principal {
         var codigoMarca = leitura.nextLine();
         endereco = endereco +"/" + codigoMarca + "/modelos";
         System.out.println(endereco);
+
+        var jsonModelos = consumo.obterDados(endereco);
+        var modelosEAnos = conversor.obterDados(jsonModelos, Modelos.class);
+        modelosEAnos.modelos().stream()
+                .sorted(Comparator.comparing(Dados::codigo))
+                .forEach(m -> System.out.println("Cód: " + m.codigo() + " Descrição: " + m.nome()));
+
     }
 }
