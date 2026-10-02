@@ -42,9 +42,32 @@ public class Principal {
 
         var jsonModelos = consumo.obterDados(endereco);
         var modelosEAnos = conversor.obterDados(jsonModelos, Modelos.class);
+
+        System.out.println("Digite um trecho do nome do veículo para consulta:");
+        var busca = leitura.nextLine();
+
         modelosEAnos.modelos().stream()
+                .filter(m -> m.nome().toLowerCase().contains(busca.toLowerCase()))
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(m -> System.out.println("Cód: " + m.codigo() + " Descrição: " + m.nome()));
+
+        System.out.println("Digite o código do modelo para consultar valores:");
+        var codigoModelo = leitura.nextLine();
+
+        endereco = endereco + "/" + codigoModelo + "/anos";
+        System.out.println(endereco);
+
+        var jsonAnos = consumo.obterDados(endereco);
+        List<Dados> anos = conversor.obterLista(jsonAnos, Dados.class);
+
+        System.out.println("Todos os veículos com os valores por ano:");
+
+        for (Dados ano : anos) {
+            String enderecoAno = endereco + "/" + ano.codigo();
+            var jsonVeiculo = consumo.obterDados(enderecoAno);
+            var veiculo = conversor.obterDados(jsonVeiculo, Veiculo.class);
+            System.out.println(veiculo);
+        }
 
     }
 }
